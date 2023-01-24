@@ -1,6 +1,6 @@
 'use strict'
 
-const {db, models: {User} } = require('../server/db')
+const {db, models: {User, Trashbag} } = require('../server/db')
 
 /**
  * seed - this function clears the database, updates tables to
@@ -17,13 +17,30 @@ async function seed() {
   ])
 
   console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1]
-    }
+
+  //Create trashbags
+  const trash = await Promise.all([
+    Trashbag.create( { fullness: 1.2, date: '2022-01-02'}),
+    Trashbag.create( { fullness: 0.45, date: '2022-10-07'}),
+    Trashbag.create( { fullness: 3.15, date: '2021-10-07'})
+  ])
+
+  console.log(`Trashbags seeded successfully`)
+
+  //Set associations
+  const setAssociations = async () => {
+    const cody = users[0]
+    const murphy = users[1]
+
+    await cody.addTrashbags(trash[0])
+    await murphy.addTrashbags(trash[1])
+    await murphy.addTrashbags(trash[2])
+
+    console.log(`Associations set successfully`)
   }
+
+  console.log(`seeded successfully`)
+  return setAssociations()
 }
 
 /*
