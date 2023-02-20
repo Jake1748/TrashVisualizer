@@ -10,6 +10,8 @@ export const Home = props => {
   return (
     <div>
       <h3>Welcome, {username}</h3>
+
+
     </div>
   )
 }
@@ -19,7 +21,8 @@ export const Home = props => {
  */
 const mapState = state => {
   return {
-    username: state.auth.username
+    username: state.auth.username,
+    // trash: state.userTrash.singleUserTrash
   }
 }
 
