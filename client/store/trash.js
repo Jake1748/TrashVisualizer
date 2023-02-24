@@ -12,10 +12,10 @@ const _getUserTrash = (allUserTrash) => {
 }
 
 // THUNKS
-export const getUserTrash = () => {
+export const getUserTrash = (id) => {
   return async (dispatch) => {
     try{
-      const response = await axios.get('/api/trash',
+      const response = await axios.get(`/api/trash/user/${id}`,
 
       //AUTHORIZATION SEND TOKEN
       {
