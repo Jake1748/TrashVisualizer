@@ -25,7 +25,6 @@ router.get('/', async (req, res, next) => {
 // GET /api/trash/user/id
 router.get('/user/:id', async (req, res, next) => {
   try {
-
   // AUTHORIZATION CHECK
   const token = req.headers.authorization
   const userByToken = await User.findByToken(token)
